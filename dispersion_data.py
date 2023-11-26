@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 branch_csv = ['A1.csv','A2.csv','A3.csv','O1.csv','O2.csv']
 branch_count = len(branch_csv)
 poly_order =  4
+k_space_res = 100
 
 branch_data = []
 k_invm = []
@@ -27,7 +28,7 @@ for i in range(branch_count):
     coeffs = np.polyfit(k_invm[i], E_meV[i], poly_order)
     poly_coeff.append(coeffs)
 
-    fit_k = np.linspace(min(k_invm[i]), max(k_invm[i]), 100)
+    fit_k = np.linspace(min(k_invm[i]), max(k_invm[i]), k_space_res)
     fit_k_invm.append(fit_k)
 
     fit_E = np.polyval(poly_coeff[i], fit_k_invm[i])

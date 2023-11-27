@@ -2,9 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 branch_csv = ['A1.csv','A2.csv','A3.csv','O1.csv','O2.csv']
+branch_names = ['Acoustic 1','Acoustic 2','Acoustic 3','Optical 1','Optical 2']
 branch_count = len(branch_csv)
 poly_order =  4
-k_space_res = 100
+k_space_res = 10000
 
 branch_data = []
 k_invm = []

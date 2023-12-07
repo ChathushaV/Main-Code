@@ -67,11 +67,7 @@ def group_velocity(w_invcm,norm_q):
 
 # Calculate mean free path using scattering terms (a constant mean fre path is used for now)
 def mean_free_path(w_invcm,norm_q,T):
-    if T<300:
-        lam = L_q
-    else:
-        lam = group_velocity(w_invcm,norm_q)/omega(w_invcm)**2
-    return lam
+    return 1
 
 # Calculate Bose-Einstein distribution for the energies in the DR
 def fBE(w_invcm,T):
@@ -145,13 +141,13 @@ for i in range(branch_count):
 # Calculate thermal conductivity
 
 # Range of temeperatures to calculate thermal conductivity
-T_low = np.linspace(100,300,101,endpoint=False)
-T_high = np.linspace(300,800,101)
-calc_low = np.zeros(len(T_low))
+#T_low = np.linspace(100,300,101,endpoint=False)
+T_high = np.linspace(100,800,101)
+#calc_low = np.zeros(len(T_low))
 calc_high = np.zeros(len(T_high))
 
-T_ranges = [T_low,T_high]
-calc_ranges = [calc_low,calc_high]
+T_ranges = [T_high]
+calc_ranges = [calc_high]
 
 for _ in range(len(T_ranges)):
     for i in range(len(T_ranges[_])):
@@ -163,16 +159,7 @@ for _ in range(len(T_ranges)):
             sum += np.trapz(integrand_values, q_values)
         calc_ranges[_][i] = 1/2*sum
 
-k_low = calc_ranges[0]/thickness
-k_high = calc_ranges[1]/thickness
-
-# Plot thermal conductivity
-fig3,ax3 = plt.subplots()
-ax3.plot(T_low,k_low)
-ax3.plot(T_high,k_high)
-ax3.set_title('Temperature Dependence of Thermal Conductance of CNTs')
-ax3.set_xlabel('Temperature [K]')
-ax3.set_ylabel('Thermal Conductance [W/K]')
+k_high = calc_ranges[0]/thickness
 
 exp_k_data = np.loadtxt('highTk.csv', delimiter=',')
 exp_k_data = exp_k_data[exp_k_data[:,0].argsort()]
@@ -186,32 +173,19 @@ for _ in range(len(T_ranges)):
     for i in range(len(T_ranges[_])):
         new_con[_].append(np.interp(T_ranges[_][i],temp,conductivity))
 
-A_fit = k_high/np.array(new_con[1])
-s_fit = 1 - k_low/np.array(new_con[0])
+lambda_fit = np.array(new_con[0])/k_high
 
-coeffs_A = np.polyfit(T_high,A_fit,4)
-coeffs_s = np.polyfit(T_low,s_fit,4)
+coeffs_l = np.polyfit(T_high,lambda_fit,4)
 
-polyfit_A = np.polyval(coeffs_A,T_high)
-polyfit_s = np.polyval(coeffs_s,T_low)
+polyfit_l = np.polyval(coeffs_l,T_high)
 
 fig4,ax4 = plt.subplots()
 
-ax4.plot(T_high,A_fit,color ='r',linestyle ='none',marker ='.', markerfacecolor ='none',label =r'$A_1$ approximations from experimental data')
-ax4.plot(T_high,polyfit_A,color ='b',linestyle='-',label =r'Polyfit for $A_1$' )
+ax4.plot(T_high,lambda_fit,color ='r',linestyle ='none',marker ='.', markerfacecolor ='none',label =r'$\lambda$ approximations from experimental data')
+ax4.plot(T_high,polyfit_l,color ='b',linestyle='-',label =r'Polyfit for $\lambda$' )
 ax4.set_xlabel('Temperature [K]')
-ax4.set_ylabel(r'$A_1$(T) [s]')
-ax4.set_title(r'Fitting $A_1$ parameter to experimental data for (10,10) CNT')
+ax4.set_ylabel(r'$\lambda$(T) [m]')
+ax4.set_title(r'Extracting $\lambda$ from experimental data for (10,10) CNT')
 ax4.legend()
-
-fig5,ax5 = plt.subplots()
-
-ax5.plot(T_low,s_fit,color ='r',linestyle ='none',marker ='.',markerfacecolor ='none',label =r's approximations from experimental data')
-ax5.plot(T_low,polyfit_s,color ='b',linestyle='-',label =r'Polyfit for s')
-ax5.set_xlabel('Temperature [K]')
-ax5.set_ylabel('s')
-ax5.set_ylim(0.99,1)
-ax5.set_title(r'Fitting specularity parameter to experimental data for (10,10) CNT')
-ax5.legend()
 
 plt.show()

@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import quad
-from dispersion_data import fit_k_invm, fit_w_invcm, branch_count, branch_names, k_space_res
+from dispersion_BNNT_10_10 import fit_k_invm, fit_w_invcm, branch_count, branch_names, k_space_res
 
 size = 16
 params = {
@@ -33,7 +33,7 @@ m = chirality[0]
 n = chirality[1]
 
 # Defining factors to determine edges of the Brillouin zone
-a = 2.49e-10
+a = np.sqrt(3)*1.452e-10
 L = a*np.sqrt(m**2 + n**2 + m*n)
 a_2 = 1.42e-10
 L_q = 1.5*m*a_2
@@ -45,7 +45,7 @@ area = np.pi/4*diameter**2 # Matching Eric Pop's paper
 
 d = np.gcd(2*m+n,2*n+m)
 T_chirality = np.sqrt(3)*L/d
-q_mul = np.pi/T_chirality
+q_mul = 1/T_chirality
 
 # Defining functions to calculate thermal conductivity
 
@@ -146,7 +146,7 @@ for i in range(branch_count):
 
 # Range of temeperatures to calculate thermal conductivity
 T_low = np.linspace(100,300,101,endpoint=False)
-T_high = np.linspace(300,800,101)
+T_high = np.linspace(300,700,101)
 calc_low = np.zeros(len(T_low))
 calc_high = np.zeros(len(T_high))
 
@@ -157,7 +157,7 @@ for _ in range(len(T_ranges)):
     for i in range(len(T_ranges[_])):
         sum = 0
         for j in range(branch_count):
-            q_values = np.linspace(1e-12, np.pi/T_chirality, k_space_res)
+            q_values = np.linspace(1e-12, 0.5/T_chirality, k_space_res)
             norm_q_values = normalize_q(q_values)
             integrand_values = integrand(norm_q_values, fit_w_invcm[j], T_ranges[_][i])
             sum += np.trapz(integrand_values, q_values)
@@ -166,7 +166,7 @@ for _ in range(len(T_ranges)):
 k_low = calc_ranges[0]/thickness
 k_high = calc_ranges[1]/thickness
 
-# Plot thermal conductivity
+#Plot thermal conductivity
 fig3,ax3 = plt.subplots()
 ax3.plot(T_low,k_low)
 ax3.plot(T_high,k_high)
@@ -174,7 +174,7 @@ ax3.set_title('Temperature Dependence of Thermal Conductance of CNTs')
 ax3.set_xlabel('Temperature [K]')
 ax3.set_ylabel('Thermal Conductance [W/K]')
 
-exp_k_data = np.loadtxt('highTk.csv', delimiter=',')
+exp_k_data = np.loadtxt('BNNT_kT.csv', delimiter=',')
 exp_k_data = exp_k_data[exp_k_data[:,0].argsort()]
 
 temp = exp_k_data[:,0]
@@ -201,7 +201,7 @@ ax4.plot(T_high,A_fit,color ='r',linestyle ='none',marker ='.', markerfacecolor 
 ax4.plot(T_high,polyfit_A,color ='b',linestyle='-',label =r'Polyfit for $A_1$' )
 ax4.set_xlabel('Temperature [K]')
 ax4.set_ylabel(r'$A_1$(T) [s]')
-ax4.set_title(r'Fitting $A_1$ parameter to experimental data for (10,10) CNT')
+ax4.set_title(r'Fitting $A_1$ parameter to experimental data for (10,10) BNNT')
 ax4.legend()
 
 fig5,ax5 = plt.subplots()
@@ -211,7 +211,7 @@ ax5.plot(T_low,polyfit_s,color ='b',linestyle='-',label =r'Polyfit for s')
 ax5.set_xlabel('Temperature [K]')
 ax5.set_ylabel('s')
 ax5.set_ylim(0.99,1)
-ax5.set_title(r'Fitting specularity parameter to experimental data for (10,10) CNT')
+ax5.set_title(r'Fitting specularity parameter to experimental data for (10,10) BNNT')
 ax5.legend()
 
 plt.show()

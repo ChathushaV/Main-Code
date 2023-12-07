@@ -16,7 +16,7 @@ plt.rcParams.update(params)
 
 plt.rcParams['font.family'] = 'Arial'
 
-branch_csv = ['A1.csv','A2.csv','A3.csv','O1.csv','O2.csv']
+branch_csv = ['10_0_A1.csv','10_0_A2.csv','10_0_A3.csv','10_0_O1.csv','10_0_O2.csv']
 branch_names = ['Acoustic 1','Acoustic 2','Acoustic 3','Optical 1','Optical 2']
 branch_count = len(branch_csv)
 poly_order =  4
@@ -59,7 +59,6 @@ for i in range(branch_count):
 
 ax.set_xlabel(r'$\frac{kT}{\pi}$')
 ax.set_ylabel(r'Frequency [$cm^{-1}$]')
-ax.set_title('Extracted Dispersion Relationship for (10,10) CNT')
+ax.set_title('Extracted Dispersion Relationship for (10,0) CNT')
 plt.legend()
 plt.show()
-

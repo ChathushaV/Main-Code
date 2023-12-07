@@ -9,17 +9,17 @@ params = {
     'xtick.labelsize': size,
     'ytick.labelsize': size,
     'axes.titlepad': 25,
-    'legend.fontsize': 10,
+    'legend.fontsize': 8,
     'figure.figsize': (8,6),
 }
 plt.rcParams.update(params)
 
 plt.rcParams['font.family'] = 'Arial'
 
-branch_csv = ['A1.csv','A2.csv','A3.csv','O1.csv','O2.csv']
+branch_csv = ['BNNT_A1.csv','BNNT_A2.csv','BNNT_A3.csv','BNNT_O1.csv','BNNT_O2.csv']
 branch_names = ['Acoustic 1','Acoustic 2','Acoustic 3','Optical 1','Optical 2']
 branch_count = len(branch_csv)
-poly_order =  4
+poly_order =  8
 k_space_res = 10000
 
 branch_data = []
@@ -54,12 +54,10 @@ for i in range(branch_count):
 
     color = cmap[i]
 
-    ax.plot(k_invm[i], E_meV[i], linestyle = 'none',marker='o',markerfacecolor='none', label='Data extracted from '+branch_names[i]+'branch',color=color)
-    ax.plot(fit_k_invm[i], fit_w_invcm[i],linestyle='-', label=f'{poly_order}th order fit for '+branch_names[i],color=color)
+    ax.plot(k_invm[i], E_meV[i], linestyle='none', marker ='o', markerfacecolor = 'none',label='Extracted points from '+branch_names[i], color = color)
+    ax.plot(fit_k_invm[i], fit_w_invcm[i],linestyle='-', label=f'{poly_order}th order polynomial fit for '+branch_names[i],color = color)
 
-ax.set_xlabel(r'$\frac{kT}{\pi}$')
+ax.set_xlabel('kT')
 ax.set_ylabel(r'Frequency [$cm^{-1}$]')
-ax.set_title('Extracted Dispersion Relationship for (10,10) CNT')
+ax.set_title('Extracted Dispersion Relationship for (10,10) BNNT')
 plt.legend()
-plt.show()
-

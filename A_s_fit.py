@@ -3,18 +3,6 @@ import matplotlib.pyplot as plt
 from scipy.integrate import quad
 from dispersion_data import fit_k_invm, fit_w_invcm, branch_count, branch_names, k_space_res
 
-size = 16
-params = {
-    'axes.labelsize': size,
-    'axes.titlesize': size,
-    'xtick.labelsize': size,
-    'ytick.labelsize': size,
-    'axes.titlepad': 25,
-    'legend.fontsize': 12,
-    'figure.figsize': (8,6),
-}
-plt.rcParams.update(params)
-
 # Universal Constants
 h_ = 1.055e-34
 kB = 1.38e-23
@@ -37,6 +25,7 @@ a = 2.49e-10
 L = a*np.sqrt(m**2 + n**2 + m*n)
 a_2 = 1.42e-10
 L_q = 1.5*m*a_2
+print(L_q)
 
 diameter = L/np.pi
 thickness = 0.335e-9
@@ -67,10 +56,7 @@ def group_velocity(w_invcm,norm_q):
 
 # Calculate mean free path using scattering terms (a constant mean fre path is used for now)
 def mean_free_path(w_invcm,norm_q,T):
-    if T<300:
-        lam = L_q
-    else:
-        lam = group_velocity(w_invcm,norm_q)/omega(w_invcm)**2
+    lam = group_velocity(w_invcm,norm_q)/omega(w_invcm)**2
     return lam
 
 # Calculate Bose-Einstein distribution for the energies in the DR
@@ -92,16 +78,6 @@ def DOS(norm_q,dim):
     elif dim==3:
         dos = wavenum(norm_q)**2/(2*np.pi**2)
     return dos
-
-# Calculate sum-to-integral conversion factor according to dimensionality and wavenumber
-def sum_integral_factor(norm_q,dim):
-    if dim==1:
-        fac = 1
-    elif dim==2:
-        fac = 2*np.pi*wavenum(norm_q)
-    elif dim==3:
-        fac = 4*np.pi*wavenum(norm_q)**2
-    return fac
 
 # Calculate the integrand of the thermal conductivity integral
 def integrand(norm_q,w_invcm,T):
@@ -145,7 +121,7 @@ for i in range(branch_count):
 # Calculate thermal conductivity
 
 # Range of temeperatures to calculate thermal conductivity
-T_low = np.linspace(100,300,101,endpoint=False)
+T_low = np.linspace(100,800,101,endpoint=False)
 T_high = np.linspace(300,800,101)
 calc_low = np.zeros(len(T_low))
 calc_high = np.zeros(len(T_high))
@@ -167,12 +143,14 @@ k_low = calc_ranges[0]/thickness
 k_high = calc_ranges[1]/thickness
 
 # Plot thermal conductivity
-fig3,ax3 = plt.subplots()
-ax3.plot(T_low,k_low)
-ax3.plot(T_high,k_high)
-ax3.set_title('Temperature Dependence of Thermal Conductance of CNTs')
-ax3.set_xlabel('Temperature [K]')
-ax3.set_ylabel('Thermal Conductance [W/K]')
+# fig3,ax3 = plt.subplots()
+# ax3.plot(T_low,k_low)
+# ax3.plot(T_high,k_high)
+# ax3.set_title('Temperature Dependence of Thermal Conductance of CNTs')
+# ax3.set_xlabel('Temperature [K]')
+# ax3.set_ylabel('Thermal Conductance [W/K]')
+
+plt.show()
 
 exp_k_data = np.loadtxt('highTk.csv', delimiter=',')
 exp_k_data = exp_k_data[exp_k_data[:,0].argsort()]
@@ -187,7 +165,7 @@ for _ in range(len(T_ranges)):
         new_con[_].append(np.interp(T_ranges[_][i],temp,conductivity))
 
 A_fit = k_high/np.array(new_con[1])
-s_fit = 1 - k_low/np.array(new_con[0])
+s_fit = k_low/np.array(new_con[0])
 
 coeffs_A = np.polyfit(T_high,A_fit,4)
 coeffs_s = np.polyfit(T_low,s_fit,4)
@@ -197,21 +175,16 @@ polyfit_s = np.polyval(coeffs_s,T_low)
 
 fig4,ax4 = plt.subplots()
 
-ax4.plot(T_high,A_fit,color ='r',linestyle ='none',marker ='.', markerfacecolor ='none',label =r'$A_1$ approximations from experimental data')
-ax4.plot(T_high,polyfit_A,color ='b',linestyle='-',label =r'Polyfit for $A_1$' )
+ax4.plot(T_high,A_fit)
+ax4.plot(T_high,polyfit_A,'k--')
 ax4.set_xlabel('Temperature [K]')
-ax4.set_ylabel(r'$A_1$(T) [s]')
-ax4.set_title(r'Fitting $A_1$ parameter to experimental data for (10,10) CNT')
-ax4.legend()
+ax4.set_ylabel('A')
 
 fig5,ax5 = plt.subplots()
 
-ax5.plot(T_low,s_fit,color ='r',linestyle ='none',marker ='.',markerfacecolor ='none',label =r's approximations from experimental data')
-ax5.plot(T_low,polyfit_s,color ='b',linestyle='-',label =r'Polyfit for s')
+ax5.plot(T_low,s_fit)
+ax5.plot(T_low,polyfit_s,'k--')
 ax5.set_xlabel('Temperature [K]')
 ax5.set_ylabel('s')
-ax5.set_ylim(0.99,1)
-ax5.set_title(r'Fitting specularity parameter to experimental data for (10,10) CNT')
-ax5.legend()
 
 plt.show()

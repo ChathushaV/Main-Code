@@ -4,6 +4,13 @@ from scipy.integrate import quad
 from dispersion_BNNT_10_0 import fit_k_invm, fit_w_invcm, branch_count, branch_names, k_space_res
 from thermal_fit_BNNT import coeffs_A,coeffs_s
 
+# Accounting for the degenerate transverse branch
+fit_k_invm.insert(1,fit_k_invm[1])
+fit_w_invcm.insert(1,fit_w_invcm[1])
+
+branch_count = len(fit_k_invm)
+branch_names = ['Acoustic 1','Acoustic 2','Acoustic 2 - degenerate', 'Acoustic 3','Optical 1','Optical 2']
+
 size = 16
 params = {
     'axes.labelsize': size,
@@ -131,7 +138,7 @@ ax2.set_title('Group Velcoity of [14,0] BNNT phonons')
 ax2.set_xlabel('Wavenumber [rad/m]')
 ax2.set_ylabel('Group Velocity [m/s]')
 
-cmap = ['r','g','b','k','m']
+cmap = ['r','g','b','k','m','orange']
 
 # Get q, w, vg data for each branch in the DR and plot
 for i in range(branch_count):

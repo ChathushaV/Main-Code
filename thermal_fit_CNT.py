@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import quad
 from dispersion_CNT_10_0 import fit_k_invm, fit_w_invcm, branch_count, branch_names, k_space_res
-from thermal_transport import coeffs_A,coeffs_s
+from thermal_transport_A_s_fits import coeffs_A,coeffs_s
 
 # Universal Constants
 h_ = 1.055e-34

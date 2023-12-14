@@ -3,6 +3,12 @@ import matplotlib.pyplot as plt
 from scipy.integrate import quad
 from dispersion_BNNT_10_10 import fit_k_invm, fit_w_invcm, branch_count, branch_names, k_space_res
 
+# Accounting for the degenerate transverse branch
+fit_k_invm.insert(1,fit_k_invm[1])
+fit_w_invcm.insert(1,fit_w_invcm[1])
+
+branch_count = len(fit_k_invm)
+
 size = 16
 params = {
     'axes.labelsize': size,

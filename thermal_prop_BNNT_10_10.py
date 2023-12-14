@@ -188,11 +188,11 @@ cp = calc_cp/thickness
 conductance = k*area/length
 
 # Plot thermal conductivity
-# fig3,ax3 = plt.subplots()
-# ax3.plot(T,k)
-# ax3.set_title('Temperature Dependence of Thermal Conductivity of (10,10) BNNTs')
-# ax3.set_xlabel('Temperature [K]')
-# ax3.set_ylabel('Thermal Conductivity [W/(m.K)]')
+fig3,ax3 = plt.subplots()
+ax3.plot(T,k)
+ax3.set_title('Temperature Dependence of Thermal Conductivity of (10,10) BNNTs')
+ax3.set_xlabel('Temperature [K]')
+ax3.set_ylabel('Thermal Conductivity [W/(m.K)]')
 
 # # Plot specific heat capacity
 # fig4,ax4 = plt.subplots()
@@ -208,4 +208,4 @@ conductance = k*area/length
 # ax5.set_xlabel('Temperature [K]')
 # ax5.set_ylabel('Conductance [W/K]')
 
-# plt.show()
+plt.show()

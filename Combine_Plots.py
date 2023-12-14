@@ -5,6 +5,8 @@ import thermal_prop_BNNT_10_10
 import thermal_prop_CNT_10_0
 import lambda_BNNT
 import lambda_CNT
+import thermal_fit_BNNT
+import thermal_transport_A_s_fits
 
 size = 16
 params = {
@@ -28,13 +30,18 @@ CNT_1010_k = thermal_prop_CNT_10_10.k
 CNT_1010_G = thermal_prop_CNT_10_10.conductance
 CNT_1010_cp = thermal_prop_CNT_10_10.cp
 
-
 CNT_100_k = thermal_prop_CNT_10_0.k
 CNT_100_G = thermal_prop_CNT_10_0.conductance
 CNT_100_cp = thermal_prop_CNT_10_0.cp
 
 lam_B = lambda_BNNT.lambda_fit
 lam_C = lambda_CNT.lambda_fit
+
+BNNT_s = thermal_fit_BNNT.s_fit
+CNT_s = thermal_transport_A_s_fits.s_fit
+BNNT_s_fit = thermal_fit_BNNT.polyfit_s
+CNT_s_fit = thermal_transport_A_s_fits.polyfit_s
+s_T = thermal_transport_A_s_fits.T_low
 
 fig,ax = plt.subplots()
 
@@ -51,19 +58,22 @@ ax.legend()
 fig2,ax2 = plt.subplots()
 
 ax2.plot(T_k,CNT_1010_k, 'b' ,label = 'Back Calculated k for CNT [10,10]')
+ax2.plot(T_k,CNT_100_k, 'g',label = 'Predicted k for CNT [10,0]')
 ax2.plot(T_k,BNNT_1010_k, 'k',label = 'Back Calculated k for BNNT [10,10]')
 ax2.set_xlabel('Temperature [K]')
 ax2.set_ylabel('Thermal Conductivity [W/(m.K)]')
-ax2.set_title('Back Calculated Thermal Conductivities (k) of CNTs and BNNTs')
+ax2.set_title('Predicted/Back calculated Thermal Conductivities of Nanotubes')
 ax2.legend()
 
 fig3,ax3 = plt.subplots()
 
-ax3.plot(T_k,CNT_1010_k, 'b' ,label = 'Back Calculated k for CNT [10,10]')
-ax3.plot(T_k,CNT_100_k, 'g',label = 'Predicted k for CNT [10,0]')
+ax3.plot(s_T,CNT_s, 'b', label = 'Speculairty of CNT [10,10]')
+ax3.plot(s_T,CNT_s_fit, 'ro', label = 'Polynomial fit of speculairty of CNT [10,10]')
+ax3.plot(s_T,BNNT_s, 'k', label = 'Speculairty of BNNT [10,10]')
+ax3.plot(s_T,BNNT_s_fit, 'go', label = 'Polynomial fit of speculairty of BNNT [10,10]')
 ax3.set_xlabel('Temperature [K]')
-ax3.set_ylabel('Thermal Conductivity [W/(m.K)]')
-ax3.set_title('Prediction of Thermal Conductivity (k) of [10,0] CNT')
+ax3.set_ylabel('Specularity')
+ax3.set_title('Specularity Fits for CNT and BNNT')
 ax3.legend()
 
 fig4,ax4 = plt.subplots()

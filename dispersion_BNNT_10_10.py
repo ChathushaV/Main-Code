@@ -24,7 +24,7 @@ k_space_res = 10000
 
 branch_data = []
 k_invm = []
-E_meV = []
+f_invcm = []
 poly_coeff = []
 fit_k_invm = []
 fit_w_invcm = []
@@ -41,9 +41,9 @@ for i in range(branch_count):
     branch_data[i] = branch_data[i][branch_data[i][:,0].argsort()]
 
     k_invm.append(branch_data[i][:,0])
-    E_meV.append(branch_data[i][:,1])
+    f_invcm.append(branch_data[i][:,1])
 
-    coeffs = np.polyfit(k_invm[i], E_meV[i], poly_order)
+    coeffs = np.polyfit(k_invm[i], f_invcm[i], poly_order)
     poly_coeff.append(coeffs)
 
     fit_k = np.linspace(min(k_invm[i]), max(k_invm[i]), k_space_res)
@@ -54,7 +54,7 @@ for i in range(branch_count):
 
     color = cmap[i]
 
-    ax.plot(k_invm[i], E_meV[i], linestyle='none', marker ='o', markerfacecolor = 'none',label='Extracted points from '+branch_names[i], color = color)
+    ax.plot(k_invm[i], f_invcm[i], linestyle='none', marker ='o', markerfacecolor = 'none',label='Extracted points from '+branch_names[i], color = color)
     ax.plot(fit_k_invm[i], fit_w_invcm[i],linestyle='-', label=f'{poly_order}th order polynomial fit for '+branch_names[i],color = color)
 
 ax.set_xlabel('kT')

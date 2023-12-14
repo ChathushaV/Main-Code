@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import thermal_prop_10_10
-import thermal_prop_BNNT
+import thermal_prop_CNT_10_10
+import thermal_prop_BNNT_10_10
 import thermal_prop_CNT_10_0
 import lambda_BNNT
 import lambda_CNT
@@ -18,15 +18,15 @@ params = {
 }
 plt.rcParams.update(params)
 
-BNNT_1010_k = thermal_prop_BNNT.k
-BNNT_1010_G = thermal_prop_BNNT.conductance
-BNNT_1010_cp = thermal_prop_BNNT.cp
-T_cp = thermal_prop_BNNT.T_cp
-T_k = thermal_prop_BNNT.T
+BNNT_1010_k = thermal_prop_BNNT_10_10.k
+BNNT_1010_G = thermal_prop_BNNT_10_10.conductance
+BNNT_1010_cp = thermal_prop_BNNT_10_10.cp
+T_cp = thermal_prop_BNNT_10_10.T_cp
+T_k = thermal_prop_BNNT_10_10.T
 
-CNT_1010_k = thermal_prop_10_10.k
-CNT_1010_G = thermal_prop_10_10.conductance
-CNT_1010_cp = thermal_prop_10_10.cp
+CNT_1010_k = thermal_prop_CNT_10_10.k
+CNT_1010_G = thermal_prop_CNT_10_10.conductance
+CNT_1010_cp = thermal_prop_CNT_10_10.cp
 
 
 CNT_100_k = thermal_prop_CNT_10_0.k

@@ -129,7 +129,6 @@ cmap = ['r','g','b','k','m','orange']
 
 # Get q, w, vg data for each branch in the DR and plot
 for i in range(branch_count):
-    print(i)
     q_in_invm = fit_k_invm[i]
     q.append(q_in_invm)
 

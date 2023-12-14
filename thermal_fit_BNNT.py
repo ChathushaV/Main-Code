@@ -220,4 +220,4 @@ polyfit_s = np.polyval(coeffs_s,T_low)
 # ax5.set_title(r'Fitting specularity parameter to experimental data for (10,10) BNNT')
 # ax5.legend()
 
-# plt.show()
+#plt.show()

@@ -127,16 +127,16 @@ w = []
 vg = []
 
 # DR plot
-fig,ax = plt.subplots()
-ax.set_title('Dispersion relationship for [14,0] BNNTs')
-ax.set_xlabel('Wavenumber [rad/m]')
-ax.set_ylabel('Frequency [rad/s]')
+# fig,ax = plt.subplots()
+# ax.set_title('Dispersion relationship for [14,0] BNNTs')
+# ax.set_xlabel('Wavenumber [rad/m]')
+# ax.set_ylabel('Frequency [rad/s]')
 
-# Group VElocity plot
-fig2,ax2 = plt.subplots()
-ax2.set_title('Group Velcoity of [14,0] BNNT phonons')
-ax2.set_xlabel('Wavenumber [rad/m]')
-ax2.set_ylabel('Group Velocity [m/s]')
+# # Group VElocity plot
+# fig2,ax2 = plt.subplots()
+# ax2.set_title('Group Velcoity of [14,0] BNNT phonons')
+# ax2.set_xlabel('Wavenumber [rad/m]')
+# ax2.set_ylabel('Group Velocity [m/s]')
 
 cmap = ['r','g','b','k','m','orange']
 
@@ -150,15 +150,15 @@ for i in range(branch_count):
     w_in_radpers = omega(fit_w_invcm[i])
     w.append(w_in_radpers)
 
-    ax.plot(q[i],w[i],label =branch_names[i],color=color, linewidth = 2)
+    #ax.plot(q[i],w[i],label =branch_names[i],color=color, linewidth = 2)
 
     vg_in_mpers = group_velocity(fit_w_invcm[i],fit_k_invm[i])
     vg.append(vg_in_mpers)
 
-    ax2.plot(q[i],vg[i], label =branch_names[i],color=color, linewidth = 2)
+    #ax2.plot(q[i],vg[i], label =branch_names[i],color=color, linewidth = 2)
 
-ax.legend()
-ax2.legend()
+#ax.legend()
+#ax2.legend()
 
 # Calculate thermal conductivity
 
@@ -192,24 +192,24 @@ cp = calc_cp/thickness
 conductance = k*area/length
 
 # Plot thermal conductivity
-fig3,ax3 = plt.subplots()
-ax3.plot(T,k)
-ax3.set_title('Temperature Dependence of Thermal Conductivity of (14,0) BNNTs')
-ax3.set_xlabel('Temperature [K]')
-ax3.set_ylabel('Thermal Conductivity [W/(m.K)]')
+# fig3,ax3 = plt.subplots()
+# ax3.plot(T,k)
+# ax3.set_title('Temperature Dependence of Thermal Conductivity of (14,0) BNNTs')
+# ax3.set_xlabel('Temperature [K]')
+# ax3.set_ylabel('Thermal Conductivity [W/(m.K)]')
 
-# Plot specific heat capacity
-fig4,ax4 = plt.subplots()
-ax4.plot(T_cp,cp)
-ax4.set_title('Temperature Dependence of Specific Heat Capacity of (14,0) BNNTs')
-ax4.set_xlabel('Temperature [K]')
-ax4.set_ylabel(r'Specific Heat Capacity [W/($m^3$K)]')
+# # Plot specific heat capacity
+# fig4,ax4 = plt.subplots()
+# ax4.plot(T_cp,cp)
+# ax4.set_title('Temperature Dependence of Specific Heat Capacity of (14,0) BNNTs')
+# ax4.set_xlabel('Temperature [K]')
+# ax4.set_ylabel(r'Specific Heat Capacity [W/($m^3$K)]')
 
-# Plot specific heat capacity
-fig5,ax5 = plt.subplots()
-ax5.plot(T,conductance)
-ax5.set_title('Temperature Dependence of Conductance of (14,0) BNNTs')
-ax5.set_xlabel('Temperature [K]')
-ax5.set_ylabel('Conductance [W/K]')
+# # Plot specific heat capacity
+# fig5,ax5 = plt.subplots()
+# ax5.plot(T,conductance)
+# ax5.set_title('Temperature Dependence of Conductance of (14,0) BNNTs')
+# ax5.set_xlabel('Temperature [K]')
+# ax5.set_ylabel('Conductance [W/K]')
 
 plt.show()

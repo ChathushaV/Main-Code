@@ -185,13 +185,13 @@ coeffs_l = np.polyfit(T_high,lambda_fit,4)
 
 polyfit_l = np.polyval(coeffs_l,T_high)
 
-fig4,ax4 = plt.subplots()
+# fig4,ax4 = plt.subplots()
 
-ax4.plot(T_high,lambda_fit,color ='r',linestyle ='none',marker ='.', markerfacecolor ='none',label =r'$\lambda$ approximations from experimental data')
-ax4.plot(T_high,polyfit_l,color ='b',linestyle='-',label =r'Polyfit for $\lambda$' )
-ax4.set_xlabel('Temperature [K]')
-ax4.set_ylabel(r'$\lambda$(T) [m]')
-ax4.set_title(r'Extracting $\lambda$ from experimental data for (10,10) CNT')
-ax4.legend()
+# ax4.plot(T_high,lambda_fit,color ='r',linestyle ='none',marker ='.', markerfacecolor ='none',label =r'$\lambda$ approximations from experimental data')
+# ax4.plot(T_high,polyfit_l,color ='b',linestyle='-',label =r'Polyfit for $\lambda$' )
+# ax4.set_xlabel('Temperature [K]')
+# ax4.set_ylabel(r'$\lambda$(T) [m]')
+# ax4.set_title(r'Extracting $\lambda$ from experimental data for (10,10) CNT')
+# ax4.legend()
 
-plt.show()
+# plt.show()

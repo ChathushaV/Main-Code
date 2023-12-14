@@ -173,12 +173,12 @@ k_low = calc_ranges[0]/thickness
 k_high = calc_ranges[1]/thickness
 
 #Plot thermal conductivity
-fig3,ax3 = plt.subplots()
-ax3.plot(T_low,k_low)
-ax3.plot(T_high,k_high)
-ax3.set_title('Temperature Dependence of Thermal Conductance of CNTs')
-ax3.set_xlabel('Temperature [K]')
-ax3.set_ylabel('Thermal Conductance [W/K]')
+# fig3,ax3 = plt.subplots()
+# ax3.plot(T_low,k_low)
+# ax3.plot(T_high,k_high)
+# ax3.set_title('Temperature Dependence of Thermal Conductance of CNTs')
+# ax3.set_xlabel('Temperature [K]')
+# ax3.set_ylabel('Thermal Conductance [W/K]')
 
 exp_k_data = np.loadtxt('BNNT_kT.csv', delimiter=',')
 exp_k_data = exp_k_data[exp_k_data[:,0].argsort()]
@@ -201,23 +201,23 @@ coeffs_s = np.polyfit(T_low,s_fit,4)
 polyfit_A = np.polyval(coeffs_A,T_high)
 polyfit_s = np.polyval(coeffs_s,T_low)
 
-fig4,ax4 = plt.subplots()
+# fig4,ax4 = plt.subplots()
 
-ax4.plot(T_high,A_fit,color ='r',linestyle ='none',marker ='.', markerfacecolor ='none',label =r'$A_1$ approximations from experimental data')
-ax4.plot(T_high,polyfit_A,color ='b',linestyle='-',label =r'Polyfit for $A_1$' )
-ax4.set_xlabel('Temperature [K]')
-ax4.set_ylabel(r'$A_1$(T) [s]')
-ax4.set_title(r'Fitting $A_1$ parameter to experimental data for (10,10) BNNT')
-ax4.legend()
+# ax4.plot(T_high,A_fit,color ='r',linestyle ='none',marker ='.', markerfacecolor ='none',label =r'$A_1$ approximations from experimental data')
+# ax4.plot(T_high,polyfit_A,color ='b',linestyle='-',label =r'Polyfit for $A_1$' )
+# ax4.set_xlabel('Temperature [K]')
+# ax4.set_ylabel(r'$A_1$(T) [s]')
+# ax4.set_title(r'Fitting $A_1$ parameter to experimental data for (10,10) BNNT')
+# ax4.legend()
 
-fig5,ax5 = plt.subplots()
+# fig5,ax5 = plt.subplots()
 
-ax5.plot(T_low,s_fit,color ='r',linestyle ='none',marker ='.',markerfacecolor ='none',label =r's approximations from experimental data')
-ax5.plot(T_low,polyfit_s,color ='b',linestyle='-',label =r'Polyfit for s')
-ax5.set_xlabel('Temperature [K]')
-ax5.set_ylabel('s')
-ax5.set_ylim(0.99,1)
-ax5.set_title(r'Fitting specularity parameter to experimental data for (10,10) BNNT')
-ax5.legend()
+# ax5.plot(T_low,s_fit,color ='r',linestyle ='none',marker ='.',markerfacecolor ='none',label =r's approximations from experimental data')
+# ax5.plot(T_low,polyfit_s,color ='b',linestyle='-',label =r'Polyfit for s')
+# ax5.set_xlabel('Temperature [K]')
+# ax5.set_ylabel('s')
+# ax5.set_ylim(0.99,1)
+# ax5.set_title(r'Fitting specularity parameter to experimental data for (10,10) BNNT')
+# ax5.legend()
 
-plt.show()
+# plt.show()

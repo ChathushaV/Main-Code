@@ -29,7 +29,7 @@ poly_coeff = []
 fit_k_invm = []
 fit_w_invcm = []
 
-fig, ax = plt.subplots()
+#fig, ax = plt.subplots()
 
 cmap = ['r','g','b','k','m']
 
@@ -54,11 +54,11 @@ for i in range(branch_count):
 
     color = cmap[i]
 
-    ax.plot(k_invm[i], f_invcm[i], linestyle = 'none',marker='o',markerfacecolor='none', label='Data extracted from '+branch_names[i]+'branch',color=color)
-    ax.plot(fit_k_invm[i], fit_w_invcm[i],linestyle='-', label=f'{poly_order}th order fit for '+branch_names[i],color=color)
+    #ax.plot(k_invm[i], f_invcm[i], linestyle = 'none',marker='o',markerfacecolor='none', label='Data extracted from '+branch_names[i]+'branch',color=color)
+    #ax.plot(fit_k_invm[i], fit_w_invcm[i],linestyle='-', label=f'{poly_order}th order fit for '+branch_names[i],color=color)
 
-ax.set_xlabel(r'$\frac{kT}{\pi}$')
-ax.set_ylabel(r'Frequency [$cm^{-1}$]')
-ax.set_title('Extracted Dispersion Relationship for (10,0) CNT')
-plt.legend()
-plt.show()
+# ax.set_xlabel(r'$\frac{kT}{\pi}$')
+# ax.set_ylabel(r'Frequency [$cm^{-1}$]')
+# ax.set_title('Extracted Dispersion Relationship for (10,0) CNT')
+# plt.legend()
+# plt.show()
